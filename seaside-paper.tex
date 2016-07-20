@@ -1,7 +1,7 @@
 % Koma-Script Basisklasse
 \documentclass[a4paper,12pt,pagesize,headsepline,bibtotoc,titlepage]{scrartcl}
 
-\usepackage[ngerman]{babel}		% deutsche Trennmuster
+%\usepackage[ngerman]{babel}		% deutsche Trennmuster
 \usepackage[utf8]{inputenc}		% direkte Eingabe von Umlauten & Co. (Vorsicht: Encoding im Editor muss auch UTF-8 sein!)
 
 \usepackage[T1]{fontenc}			% T1-Schriften
@@ -26,21 +26,21 @@
 \typearea[current]{current}     % Satzspiegel neu berechnen
 
 % andere Bildunterschrift mit Hilfe von caption
-\renewcommand{\figurename}{Abb.}
+%\renewcommand{\figurename}{Abb.}
 \renewcommand{\captionlabelfont}{\bf}
 
 \title{
 	\includegraphics*[width=0.4\textwidth]{hpi_logo.png}\\
 	\vspace{24pt}
-	Titel des Themas
+	 Seaside - An Object-Oriented Web Application Development Framework
 }
 \subtitle{
 	Seminar\\
 	Weiterführende Themen zu Internet- und WWW-Technologien\\
-	Sommersemester 2013
+	Sommersemester 2016
 }
 \author{
-	Dein Name hier\\[12pt]
+	Lennard Wolf\\[12pt]
 	Betreuer:\\
 	Matthias Bauer, Haojin Yang\\
 	Prof. Dr. Christoph Meinel
@@ -52,22 +52,91 @@
 \tableofcontents
 \newpage
 
+\section{Introduction}
+Seaside is an open source object-oriented web application development for the Smalltalk programming language. IT DOES THIS AND THAT.... This text aims at a basic understanding of its history and the context in which it was conceived, its concepts, how they differ from other frameworks of its kind, and what working with it looks like. 
 
-\section{Kapitelüberschrift}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed nunc leo. Nam ac leo venenatis est commodo vehicula. Nulla justo nisl, venenatis id tincidunt id, porta ut felis. Cras eu justo ac nisi ornare commodo placerat at risus. Suspendisse ut urna tellus. Cras ut erat tempus justo aliquam laoreet. Praesent est neque, interdum quis convallis et, gravida sed arcu. Mauris bibendum, dui at ullamcorper luctus, arcu dolor laoreet nisi, ut facilisis dui enim a nisl. Sed odio risus, pulvinar suscipit feugiat pharetra, varius non est. Morbi pellentesque libero eu odio pulvinar semper. Praesent cursus adipiscing metus nec fermentum. Nullam malesuada euismod mi nec tincidunt. Nulla eget auctor velit. Mauris quam odio, blandit sit amet pharetra non, lobortis sed risus. Aliquam nec orci vel dolor suscipit tristique. Etiam quam eros, commodo at iaculis at, molestie eu metus. Maecenas viverra dui non magna suscipit sodales commodo justo iaculis (siehe Abbildung \ref{abb:test}).
+This work is structured as follows. Section \ref{sec:history} introduces 
+... 
+ and Section \ref{sec:conclusion} concludes this work.
+
+
+\section{History of Seaside}
+\label{sec:history}
+To understand Seaside's origins, knowledge of the technologies currently popular at the beginnings of its development is required first. This Section will thus start out with such an overview, then present the original motivations behind Seaside, followed by a list of the people involved, a development timeline, and finally the current state of both the feature list and the development in general will be examined.
+
+\subsection{Historical Context}
+\label{sec:context} 
+
+\begin{itemize}
+\item Unknown: Server side or client side?
+\item Javascript was blocked by default Web Apps thus had to be server side
+\item User-readable URLs were not a must
+\item Ajax did not exist until 2005
+\end{itemize}
+
+\subsection{Motivation}
+\label{sec:motivation} 
+
+\begin{itemize}
+\item introduce smalltalk
+\item Avi Bryant wanted to build interactive Squeak Wiki
+\item Inspired by Apple’s WebObjects (Objective-C)
+\end{itemize}
+
+\subsection{Development}
+\label{sec:dev} 
+
+
+\begin{itemize}
+\item First Release 0.9 in February 2002 by Avi Bryant \& Julian Fitzell, Open Source with MIT License
+\item Quick development, version 2.0 came October 2003
+\item datepicker was very modern
+\end{itemize}
+
+\subsection{Current State}
+\label{sec:current} 
+
+\begin{itemize}
+\item list of current features:
+\item Live debugging and code changing while user interacts with web app
+\item debugger in browser
+\item no HTML, render page as Morph -> no browser needed
+\item CSS, Ajax, Comet, \& Javascript support
+\end{itemize}
+
+\section{Object-Oriented Web Application Development}
+
+
+\begin{itemize}
+\item list of current features
+\end{itemize}
+
+
+\section{Working with Seaside}
+\label{sec:workflow}
+
+
+\begin{itemize}
+\item Session for each user
+\end{itemize}
 
 \begin{figure}[hbp]
 \begin{center}
-\includegraphics*[width=0.75\textwidth]{beispiel.png}\\
-\caption{Eine Abbildung, Quelle: \cite{willems2008}}
+\includegraphics*[width=0.75\textwidth]{images/toolbar.png}\\
+\caption{something something}
 \label{abb:test}
 \end{center}
 \end{figure}
 
-\subsection{Abschnittsüberschrift}
-Quisque pharetra, tellus id cursus consectetur, libero arcu sollicitudin nisl, in pulvinar tortor tortor consequat arcu. Donec pulvinar nibh in elit iaculis vel pellentesque diam tincidunt. Fusce posuere volutpat libero in consequat. Curabitur sit amet interdum leo. Vestibulum massa ante, ultrices vel dictum vitae, vestibulum consequat magna. Pellentesque turpis ligula, fermentum vel consectetur id, ornare non diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium scelerisque nisi sit amet semper. Nulla lobortis quam sit amet turpis tristique accumsan. Vivamus sed nunc odio.
+\section{Evaluation}
+\label{sec:evaluation}
 
-In tempor leo ut lectus lacinia commodo. Vestibulum pretium accumsan erat, non interdum sem feugiat a. Praesent tempor odio quis arcu laoreet dignissim. Mauris egestas lectus sed purus malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat auctor laoreet. Nunc hendrerit viverra posuere. Morbi egestas ante et augue mattis eleifend. Aliquam nibh turpis, adipiscing ac lacinia sed, laoreet vel orci. Donec velit est, fringilla ac vulputate vitae, commodo a velit. Fusce vitae posuere diam. Pellentesque tellus tellus, volutpat non fringilla in, vulputate vitae magna. Proin ligula diam, aliquet eget feugiat ac, rutrum in tortor.
+\begin{itemize}
+\item Each session object can be multiple megabytes big If server crashes, all sessions are lost\item Gemstone distributed but expensive\item Javascript not really debuggable\item Very hard to implement human readable URLs\item Not on par with today’s demands of a fast dynamic webpage since its server side
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conclusion}
 
 
 
