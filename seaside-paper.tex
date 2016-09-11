@@ -9,7 +9,7 @@
 \usepackage{mathptmx}			% Times/Mathe \rmdefault
 \usepackage[scaled=.90]{helvet}	% Skalierte Helvetica \sfdefault
 \usepackage{courier}			% Courier \ttdefault
-
+\usepackage[cache=false,outputdir=.texpadtmp]{minted}
 % Zusatzpakete für mehr mathematische Symbole, Einfügen von Grafiken 
 % und bessere Bildunterschriften
 \usepackage{amsmath,amsthm,amsfonts,graphicx,caption}
@@ -78,7 +78,6 @@ To understand Seaside's origins, knowledge of the technologies currently popular
 \label{sec:motivation} 
 
 \begin{itemize}
-\item introduce smalltalk
 \item Avi Bryant wanted to build interactive Squeak Wiki
 \item Inspired by Apple’s WebObjects (Objective-C)
 \end{itemize}
@@ -106,9 +105,43 @@ To understand Seaside's origins, knowledge of the technologies currently popular
 
 \section{Object-Oriented Web Application Development}
 
+In this Section we will shortly introduce the object-oriented programming language Smalltalk in which Seaside is written and used. Then we will discuss the differences between more common approaches to web application development and the object-oriented way.
+
+\subsection{Smalltalk}
+
+Smalltalk was created in the 70's at Xerox PARC by Alan Kay \emph{et al.}. It is dynamically typed and purely object-oriented, meaning that \emph{everything in a Smalltalk environment is an object} and can thus be easily interacted with. Smalltalk environments such as the free and open source Squeak or the proprietary Gemstone\footnote{Squeak: \url{http://squeak.org} Gemstone: \url{https://gemtalksystems.com}, both accessed: 2016-09-11} are normally shipped with the Smalltalk core classes (e.g. \mintinline{smalltalk}{Object}) as well as additional ones, depending on the environment's use cases. One of their most important features is \emph{reflection}, with which the programmer is able to inspect and modify every part of the system at runtime. This is especially useful in cases where a system may never shut down, because the changed code does not need to be recompiled but comes into effect immediately. 
+
+The syntax can be described as minimalistic. Smalltalk code consists of sequences of messages sent to objects (\mintinline{smalltalk}{anObject message})\footnote{A good overview on the Smalltalk syntax was created by Chris Rathman and can be found at \url{http://www.angelfire.com/tx4/cus/notes/smalltalk.html}}. Listing \ref{lst:smalltalksyntax} presents syntax basics that are helpful when approaching Seaside.  
+
+
+\begin{listing}[]%ht]
+\begin{minted}{smalltalk}
+
+"Send the message 'not' to 'true' and assign the returned value to a."
+a := true not.
+
+"Messages can be chained."
+b := a not not not.
+
+"Blocks are sequences of executable code that return the value of the 
+last line. They can take any number of arguments (here x and y)."
+aBlock := [ :x :y | z := x * y. z - (2 * x) ]
+
+"aBlock is executed with varying parameters depending on b's state."
+answer := b ifTrue: [aBlock value: 7 value: 8] 
+            iFalse: [aBlock value: 0 value: 0].
+
+\end{minted}
+\caption{The core syntax of Smalltalk}
+\label{lst:smalltalksyntax}
+\end{listing}
+
+\subsection{Comparison with other technologies}
 
 \begin{itemize}
-\item list of current features
+\item comparison of features:
+\item everything is an object
+\item synchronous vs async
 \end{itemize}
 
 
@@ -118,6 +151,8 @@ To understand Seaside's origins, knowledge of the technologies currently popular
 
 \begin{itemize}
 \item Session for each user
+\item ...
+\item debugging
 \end{itemize}
 
 \begin{figure}[hbp]
