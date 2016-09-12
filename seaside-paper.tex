@@ -1,7 +1,6 @@
 % Koma-Script Basisklasse
-\documentclass[a4paper,12pt,pagesize,headsepline,bibtotoc,titlepage]{scrartcl}
+\documentclass[a4paper,12pt,pagesize,headsepline,oribibl,titlepage]{scrartcl}
 
-%\usepackage[ngerman]{babel}		% deutsche Trennmuster
 \usepackage[utf8]{inputenc}		% direkte Eingabe von Umlauten & Co. (Vorsicht: Encoding im Editor muss auch UTF-8 sein!)
 
 \usepackage[T1]{fontenc}			% T1-Schriften
@@ -33,7 +32,7 @@
 \renewcommand*\dictumauthorformat[1]{--- #1}
 \renewcommand*\dictumrule{}
 
-\renewcommand{\captionlabelfont}{\bf}
+%\renewcommand{\captionlabelfont}{\bf}
 
 \title{
 	\includegraphics*[width=0.4\textwidth]{hpi_logo.png}\\
@@ -84,9 +83,10 @@ During this time, questions like this one, or for example whether URLs have to b
 
 \dictum[Avi Bryant, \textit{Web Heresies: The Seaside Framework} \cite{Bryant06}]{%
 Over the last few years, some best practices have come to be widely accepted in the web development world. Share as little state as possible. Use clean, carefully chosen, and meaningful URLs. Use templates to separate your model from your presentation.
+\newline
 
 Seaside is a web application framework for Smalltalk that breaks all of these rules and then some. Think of it as an experiment in tradeoffs: if you reject the conventional wisdoms of web development, what benefits can you get in return? Quite a lot, it turns out, and this "experiment" has gained a large open source following, seen years of production use, and been heralded by some as the future of web applications.}
-\medskip
+\bigskip
 
 Avi Bryant and Julian Fitzell started working on a web application framework for Smalltalk in 2001 within the context of their consulting endeavours, as well as their current project of building a theatre boxoffice sales system, which was supposed to be using it. Bryant had built such a framework before in Ruby, called \emph{Iowa}, which was heavily influenced by Apple's \emph{WebObjects} for Java. The philosophies shared by these two frameworks were \emph{object-orientation}, \emph{database connectivity}, and \emph{fast prototyping}. These then built the foundations for the new project, which aimed to bring a unique framework to Smalltalk environments.
 
@@ -185,16 +185,11 @@ How does it work\cite{perscheid2008introduction}
 \section{Conclusion}
 \label{sec:conclusion}
 
-
+\textbf{URLS IN BIBLIOGRAPHY!!!}
 
 \newpage
-\begin{thebibliography}{1}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{seaside-paper}
 
-\bibitem{willems2008}
-C.~Willems and C.~Meinel.
-``Tele-Lab IT-Security: an Architecture for an online virtual IT Security Lab'',
-\emph{International Journal of Online Engineering (iJOE)},
-X, 2008.
-
-\end{thebibliography}
 \end{document}

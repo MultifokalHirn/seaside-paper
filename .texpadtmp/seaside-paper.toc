@@ -10,4 +10,3 @@
 \contentsline {section}{\numberline {4}Working with Seaside}{5}{section.4}
 \contentsline {section}{\numberline {5}Evaluation}{6}{section.5}
 \contentsline {section}{\numberline {6}Conclusion}{6}{section.6}
-\contentsline {section}{\nonumberline References}{7}{section*.3}
