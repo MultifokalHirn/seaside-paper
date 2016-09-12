@@ -77,6 +77,10 @@ To understand Seaside's origins, knowledge of the technologies currently popular
 \subsection{Motivation}
 \label{sec:motivation} 
 
+Over the last few years, some best practices have come to be widely accepted in the web development world. Share as little state as possible. Use clean, carefully chosen, and meaningful URLs. Use templates to separate your model from your presentation.
+Seaside is a web application framework for Smalltalk that breaks all of these rules and then some. Think of it as an experiment in tradeoffs: if you reject the conventional wisdoms of web development, what benefits can you get in return? Quite a lot, it turns out, and this "experiment" has gained a large open source following, seen years of production use, and been heralded by some as the future of web applications.\footnote{Taken from "Web Heresies: The Seaside Framework' Session notes, OSCON 2006". \url{http://web.archive.org/web/20140830152243id\_/http://conferences.oreillynet.com/cs/os2006/view/e_sess/8942}, accessed: 2016-09-12}
+
+
 \begin{itemize}
 \item Avi Bryant wanted to build interactive Squeak Wiki
 \item Inspired by Apple’s WebObjects (Objective-C)
@@ -167,7 +171,11 @@ answer := b ifTrue: [aBlock value: 7 value: 8]
 \label{sec:evaluation}
 
 \begin{itemize}
-\item Each session object can be multiple megabytes big If server crashes, all sessions are lost\item Gemstone distributed but expensive\item Javascript not really debuggable\item Very hard to implement human readable URLs\item Not on par with today’s demands of a fast dynamic webpage since its server side
+\item Each session object can be multiple megabytes big If server crashes, all sessions are lost
+\item Gemstone distributed but expensive
+\item Javascript not really debuggable
+\item Very hard to implement human readable URLs
+\item Not on par with today’s demands of a fast dynamic webpage since its server side
 \end{itemize}
 
 \section{Conclusion}
