@@ -4,9 +4,12 @@
 \contentsline {subsection}{\numberline {2.2}Motivation}{4}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Development}{4}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Current State and Key Features}{5}{subsection.2.4}
-\contentsline {section}{\numberline {3}Object-Oriented Web Application Development}{6}{section.3}
+\contentsline {section}{\numberline {3}Working with Seaside}{6}{section.3}
 \contentsline {subsection}{\numberline {3.1}Smalltalk}{6}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Comparison with other technologies}{7}{subsection.3.2}
-\contentsline {section}{\numberline {4}Working with Seaside}{7}{section.4}
-\contentsline {section}{\numberline {5}Evaluation}{7}{section.5}
-\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}
+\contentsline {subsection}{\numberline {3.2}Installing Seaside}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Setting up a Website}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Using Components}{8}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Debugging}{8}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Managing Sessions}{8}{subsection.3.6}
+\contentsline {section}{\numberline {4}Evaluation}{9}{section.4}
+\contentsline {section}{\numberline {5}Conclusion}{9}{section.5}
