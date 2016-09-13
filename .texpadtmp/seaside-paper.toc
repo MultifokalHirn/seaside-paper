@@ -3,10 +3,10 @@
 \contentsline {subsection}{\numberline {2.1}Historical Context}{3}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Motivation}{4}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Development}{4}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Current State}{4}{subsection.2.4}
-\contentsline {section}{\numberline {3}Object-Oriented Web Application Development}{5}{section.3}
-\contentsline {subsection}{\numberline {3.1}Smalltalk}{5}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Comparison with other technologies}{5}{subsection.3.2}
-\contentsline {section}{\numberline {4}Working with Seaside}{5}{section.4}
-\contentsline {section}{\numberline {5}Evaluation}{6}{section.5}
-\contentsline {section}{\numberline {6}Conclusion}{6}{section.6}
+\contentsline {subsection}{\numberline {2.4}Current State and Key Features}{5}{subsection.2.4}
+\contentsline {section}{\numberline {3}Object-Oriented Web Application Development}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}Smalltalk}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Comparison with other technologies}{7}{subsection.3.2}
+\contentsline {section}{\numberline {4}Working with Seaside}{7}{section.4}
+\contentsline {section}{\numberline {5}Evaluation}{7}{section.5}
+\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}

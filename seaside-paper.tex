@@ -31,7 +31,7 @@
 \renewcommand*\dictumwidth{\linewidth}
 \renewcommand*\dictumauthorformat[1]{--- #1}
 \renewcommand*\dictumrule{}
-
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}\PackageWarning{TODO:}{#1!}}
 %\renewcommand{\captionlabelfont}{\bf}
 
 \title{
@@ -58,11 +58,10 @@
 \newpage
 
 \section{Introduction}
-Seaside is an open source object-oriented web application development for the Smalltalk programming language. It  This text aims at a basic understanding of its history and the context in which it was conceived, its concepts, how they differ from other frameworks of its kind, and what working with it looks like. 
+Seaside is an open source object-oriented web application development framework for the Smalltalk programming language. The strict object-oriented approach as well as it's concept of user sessions offers a unique perspective on programmers' workflow and logic behind web apps. It thus differs immensely from today's more common webframeworks in the field such as AngularJS, Django, or Ruby on Rails. This text aims at a basic understanding of its history and the context in which it was conceived, its concepts, how they differ from other frameworks of its kind, what working with it looks like, and what can be learned from it. 
+\medskip
 
-This work is structured as follows. Section \ref{sec:history} introduces 
-... 
- and Section \ref{sec:conclusion} concludes this work.
+This work is structured as follows. Section \ref{sec:history} introduces the history of Seaside including its context, the motivations behind it, as well as its current state. Section \ref{sec:oowad} discusses Smalltalk and the implications that an object-orientated approach to web application development has. In Section \ref{sec:workflow} we introduce the core concepts of Seaside and the workflow that results from them. Then, in Section \ref{sec:evaluation}, we take a critical look at Seaside, evaluate it in the context of current technologies, and summarize what Seaside can teach web developers of today. Section \ref{sec:conclusion} concludes this work.
 
 
 \section{History of Seaside}
@@ -88,7 +87,7 @@ Over the last few years, some best practices have come to be widely accepted in 
 Seaside is a web application framework for Smalltalk that breaks all of these rules and then some. Think of it as an experiment in tradeoffs: if you reject the conventional wisdoms of web development, what benefits can you get in return? Quite a lot, it turns out, and this "experiment" has gained a large open source following, seen years of production use, and been heralded by some as the future of web applications.}
 \bigskip
 
-Avi Bryant and Julian Fitzell started working on a web application framework for Smalltalk in 2001 within the context of their consulting endeavours, as well as their current project of building a theatre boxoffice sales system, which was supposed to be using it. Bryant had built such a framework before in Ruby, called \emph{Iowa}, which was heavily influenced by Apple's \emph{WebObjects} for Java. The philosophies shared by these two frameworks were \emph{object-orientation}, \emph{database connectivity}, and \emph{fast prototyping}. These then built the foundations for the new project, which aimed to bring a unique framework to Smalltalk environments.
+Avi Bryant and Julian Fitzell started working on a web application framework for Smalltalk in 2001 within the context of their consulting endeavours, as well as their current project of building a theatre boxoffice sales system, which was supposed to be using it. Bryant had built such a framework before in Ruby, called \emph{Iowa}, which was heavily influenced by Apple's \emph{WebObjects}\footnote{The still active community of volunteer developers can be found at \url{https://wiki.wocommunity.org/display/WEB/Home}, accessed: 2016-09-13} for Java. The philosophies shared by these two frameworks were \emph{object-orientation}, \emph{database connectivity}, and \emph{fast prototyping}\footnote{This feature is best shown by example, as Ramon Leon created a fully functional skeleton for a blog within 15 minutes with Seaside, back in 2006: \url{http://onsmalltalk.com/screencast-how-to-build-a-blog-in-15-minutes-with-seaside}, accessed: 2016-09-13}. These then, as well as the concept of \emph{continuations} through \emph{user sessions}, built the foundations for the new project, which aimed to bring a unique framework to Smalltalk environments.
 
 
 \subsection{Development}
@@ -99,18 +98,32 @@ The first version, Seaside 0.9, was announced in February 2002 by Bryant and Fit
 From the beginning it was open source under the MIT License and because of the big amount of feedback from the Smalltalk community, the development could happen quite fast. Thus, version 2.0 came out in October 2003 and was a complete rewrite of the system. It included many new features such as HTML generation, in-browser development tools, and a \emph{Views} layer to name a few. \cite{Fitzl}
 
 
-\subsection{Current State}
+\subsection{Current State and Key Features}
 \label{sec:current} 
 
-\begin{itemize}
-\item list of current features:
-\item Live debugging and code changing while user interacts with web app
-\item debugger in browser
-\item no HTML, render page as Morph -> no browser needed
-\item CSS, Ajax, Comet, \& Javascript support
-\end{itemize}
+Since Seaside is still in use in some places, it still has contributors\footnote{A full list can be found at \url{http://www.seaside.st/community/contributors}, accessed: 2016-09-12} that fix bugs, work on the support of other technologies and their updates, improve memory efficiency as well as rendering speed, and maintain the overall code quality. 
+The latest stable version, Seaside 3.2\footnote{Releases can be found on the GitHub releases page: \url{https://github.com/SeasideSt/Seaside/releases}, accessed: 2016-09-13}, was released on May 5, 2016 and mainly focuses on performance and scalability. Improvements in these areas over time are presented on the \url{http://www.seaside.st} website by comparison of unit test results with older version, as shown in Figure \ref{fig:performance}.
+
+\begin{figure}[hbp]
+\begin{center}
+\includegraphics*[width=0.7\textwidth]{images/performance.png}\\
+\caption{The substantial performance improvements in version 2.8}
+\label{fig:performance}
+\end{center}
+\end{figure}
+
+As mentioned above, the key ideas underlying the design of Seaside are \emph{object-orientation}, \emph{continuations}, as well as \emph{fast prototyping and development}.
+The object-orientated approach brought about the so called \emph{components}, which are the stateful and reusable building  blocks of a website. Their state is saved in \emph{user session objects}, or \emph{continuations}, on the server and each of which is linked to a certain user via XXXX, so that when one returns to the website, its state is the same as when one has left it earlier.
+
+The stateful components based site creation makes Seaside's workflow comparable to that of working with the \emph{React} JavaScript library\footnote{For documentation etc. visit \url{https://facebook.github.io/react}, accessed: 2016-09-13}. But furthermore, the framework provides productivity tools such as \emph{live debugging} in the Smalltalk environment with the powerful Smalltalk debugger that not only lets developers browse the call stack easily, but edit the code within the debugger and make the changes effective immediately, providing a smooth bug fixing experience. If enabled, Seaside allows inspection and editing of components within the page shown in the browser, and in error cases, the call stack can be viewed and the faulty code fixed from within the browser too.
+
+When creating a website with Seaside, no actual HTML code has to be written, since the Smalltalk code which describes the components is used by the renderer to generate HTML code automatically. Further, such a website can also be rendered with \emph{morphs}, the building blocks of most GUI based Smalltalk environments, enabling the development without the need of a browser. 
+
+Over the time, Seaside has come to support many common web technologies. Since \emph{CSS} (\textbf{C}ascading \textbf{S}tyle \textbf{S}heets) is commonly used to make webpages visually  appealing, it is supported by Seaside, as well as AJAX, Comet, and basic JavaScript.
+
 
 \section{Object-Oriented Web Application Development}
+\label{sec:oowad} 
 
 In this Section we will shortly introduce the object-oriented programming language Smalltalk in which Seaside is written and used. Then we will discuss the differences between more common approaches to web application development and the object-oriented way.
 
@@ -173,6 +186,8 @@ How does it work\cite{perscheid2008introduction}
 
 \section{Evaluation}
 \label{sec:evaluation}
+\todo{http://amber-lang.net/index.html}
+\todo{\emph{object-orientation}, \emph{continuations}, and \emph{fast prototyping/development}}.
 
 \begin{itemize}
 \item Each session object can be multiple megabytes big If server crashes, all sessions are lost
@@ -185,7 +200,7 @@ How does it work\cite{perscheid2008introduction}
 \section{Conclusion}
 \label{sec:conclusion}
 
-\textbf{URLS IN BIBLIOGRAPHY!!!}
+\todo{URLS IN BIBLIOGRAPHY!!!}
 
 \newpage
 \nocite{*}
