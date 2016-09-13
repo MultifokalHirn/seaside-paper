@@ -113,13 +113,21 @@ The latest stable version, Seaside 3.2\footnote{Releases can be found on the Git
 \end{figure}
 
 As mentioned above, the key ideas underlying the design of Seaside are \emph{object-orientation}, \emph{continuations}, as well as \emph{fast prototyping and development}.
-The object-orientated approach brought about the so called \emph{components}, which are the stateful and reusable building  blocks of a website. Their state is saved in \emph{user session objects}, or \emph{continuations}, on the server and each of which is linked to a certain user via \todo{XXXX}, so that when one returns to the website, its state is the same as when one has left it earlier.
+The object-orientated approach brought about the so called \emph{components}, which are the stateful and reusable building  blocks of a website. Their state is saved in \emph{user session objects}, or \emph{continuations}, on the server and each of which is linked to a certain user via \todo{XXXX}, so that when one returns to the website, its state is the same as when one has left it earlier. Figure \ref{abb:comps} shows what a website subdivided into components with parent-child-relationships can look like.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics*[width=0.63\textwidth]{images/components.png}\\
+\caption{A webpage and the components it is made of represented by the dashed boxes}
+\label{abb:comps}
+\end{center}
+\end{figure}
 
 The stateful components based site creation makes Seaside's workflow comparable to that of working with the \emph{React} JavaScript library\footnote{For documentation etc. visit \url{https://facebook.github.io/react}, accessed: 2016-09-13}. As it has become common, Seaside too works over the \emph{Model View Controller} architecture pattern, which had actually originally been conceived by Trygve Reenskaug whilst working on Smalltalk at Xerox PARC \cite{reenskaug1979original}. But furthermore, the framework provides productivity tools such as \emph{live debugging} in the Smalltalk environment with the powerful Smalltalk debugger that not only lets developers browse the call stack easily, but edit the code within the debugger and make the changes effective immediately, providing a smooth bug fixing experience. If enabled, Seaside allows inspection and editing of components within the page shown in the browser, and in error cases, the call stack can be viewed and the faulty code fixed from within the browser too.
 
 When creating a website with Seaside, no actual HTML code has to be written, since the Smalltalk code which describes the components is used by the renderer to generate HTML code automatically. Further, such a website can also be rendered with \emph{morphs}, the building blocks of most GUI based Smalltalk environments, enabling the development without the need of a browser. 
 
-Over the time, Seaside has come to support many common web technologies. Since \emph{CSS} (\textbf{C}ascading \textbf{S}tyle \textbf{S}heets) is commonly used to make webpages visually  appealing, it is supported by Seaside, as well as AJAX, Comet, and basic JavaScript.
+Over the time, Seaside has come to support many common web technologies. Since \emph{CSS} (\textbf{C}ascading \textbf{S}tyle \textbf{S}heets) is commonly used to make webpages visually  appealing, it is supported by Seaside, as well as AJAX, Comet, and JavaScript.
 
 
 \section{Working with Seaside}
@@ -150,7 +158,7 @@ aBlock := [ :x :y | z := x * y. z - (2 * x) ].
 
 "aBlock is executed with varying parameters depending on b's state."
 answer := b ifTrue: [aBlock value: 7 value: 8] 
-            iFalse: [aBlock value: 0 value: 0].
+            ifFalse: [aBlock value: 0 value: 0].
 
 \end{minted}
 \caption{The core syntax of Smalltalk}
@@ -175,9 +183,19 @@ Metacello new
 \label{lst:install}
 \end{listing}
 
-\subsection{Setting up a Website}
+\subsection{Setting Up a Website}
 
-When starting out with creating a website, \ref{lst:seasidefirststeps}
+After opening the \emph{Seaside Control Panel} vie the \emph{Apps} tab in the environment, the GUI allows the user to serve the Seaside application through a chosen port. Figure \ref{abb:start} shows the Control Panel with a server instance and a browser showing the Seaside welcome screen, which is the default root page when setting up an application.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics*[width=0.82\textwidth]{images/started.png}\\
+\caption{A Squeak environment with a running Seaside server and a browser showing the root site}
+\label{abb:start}
+\end{center}
+\end{figure}
+
+When starting out with creating a website, one would typically create a root component, which will become the first thing that users will see, when visiting the website. Component classes are always subclasses of \mintinline{smalltalk}{WAComponent}, Listing \ref{lst:seasidefirststeps} exemplifies the creation of such a component, here given the name \mintinline{smalltalk}{MyRootComponent}. 
 
 \begin{listing}[]%ht]
 \begin{minted}{smalltalk}
@@ -186,30 +204,48 @@ MyRootComponent class>>canBeRoot
     ^true
     
 MyRootComponent class>>initialize
-    "self initialize"
     | app |
     app := self registerAsApplication: #myWebsite.
     app libraries add: SULibrary.
-    app preferenceAt: #sessionClass put: CustomSession
+    app preferenceAt: #sessionClass put: CustomSession.
+    self children: OrderedCollection new
     
+MyRootComponent>>renderContentOn: html
+    html div: 'Hello World'
+    
+MyRootComponent>>children
+    ^children
+
 \end{minted}
-\caption{Making the MyRootComponent the website's root, adding the Scriptaculous library, and creating a custom session class}
+\caption{Making the \mintinline{smalltalk}{MyRootComponent} the website's root and adding basic functionality}
 \label{lst:seasidefirststeps}
 \end{listing}
 
-\subsection{Using Components}
+\subsection{Rendering and Subcomponents}
+
+In Seaside, you can both render the View (\texttt{renderContentOn:}) or the Model itself (\texttt{renderOn:}). \mintinline{smalltalk}{MyRootComponent} will thus greet visitors with "Hello World".
+
+The \texttt{children} method is necessary to enable the component to have \emph{subcomponents}. Say we now want our website to be divided into three components, \texttt{header}, \texttt{currentBody}, and \texttt{footer}, and these are supposed to be subcomponents of \mintinline{smalltalk}{MyRootComponent}. Then we need to create these components as individual classes, just like their parent, and register them as  instance variables as well as children. 
+
+\begin{listing}[]%ht]
+\begin{minted}{smalltalk}
+
+MyRootComponent>>children
+    ^ { header. currentBody. footer }
+
+renderContentOn: html
+    html div id: #header; with: [html render: header].
+    html div id: #body; with: [html render: currentBody].
+    html div id: #footer; with: [html render: footer]
+
+\end{minted}
+\caption{Subdividing \mintinline{smalltalk}{MyRootComponent} into its subcomponents and making it only render their content}
+\label{lst:seasidefirststeps}
+\end{listing}
 
 \subsection{Debugging}
 
 \subsection{Managing Sessions}
-
-\begin{figure}[hbp]
-\begin{center}
-\includegraphics*[width=0.75\textwidth]{images/toolbar.png}\\
-\caption{something something}
-\label{abb:test}
-\end{center}
-\end{figure}
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -219,7 +255,7 @@ MyRootComponent class>>initialize
 \begin{itemize}
 \item comparison of features:
 \item everything is an object
-\item synchronous vs async
+\item hides synchronicity -> no callback hell
 \end{itemize}
 
 \begin{itemize}
