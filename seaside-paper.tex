@@ -113,7 +113,7 @@ The latest stable version, Seaside 3.2\footnote{Releases can be found on the Git
 \end{figure}
 
 As mentioned above, the key ideas underlying the design of Seaside are \emph{object-orientation}, \emph{continuations}, as well as \emph{fast prototyping and development}.
-The object-orientated approach brought about the so called \emph{components}, which are the stateful and reusable building  blocks of a website. Their state is saved in \emph{user session objects}, or \emph{continuations}, on the server and each of which is linked to a certain user via \todo{XXXX}, so that when one returns to the website, its state is the same as when one has left it earlier. Figure \ref{abb:comps} shows what a website subdivided into components with parent-child-relationships can look like.
+The object-orientated approach brought about the so called \emph{components}, which are the stateful and reusable building  blocks of a website. Their state is saved in \emph{user session objects}, or \emph{continuations}, on the server and each of which is linked to a certain user in a registry, so that when one returns to the website, its state is the same as when one has left it earlier. Figure \ref{abb:comps} shows what a website subdivided into components with parent-child-relationships can look like.
 
 \begin{figure}[h]
 \begin{center}
@@ -140,30 +140,15 @@ In this Section we will shortly introduce the object-oriented programming langua
 
 Smalltalk was created in the 70's at Xerox PARC by Alan Kay \emph{et al.} for research and educational purposes. It is dynamically typed and purely object-oriented, meaning that \emph{everything in a Smalltalk environment is an object} and can thus be easily interacted with. Smalltalk environments such as the free and open source Squeak or the proprietary Gemstone\footnote{Squeak: \url{http://squeak.org} Gemstone: \url{https://gemtalksystems.com}, both accessed: 2016-09-11} are normally shipped with the Smalltalk core classes (e.g. the fundamental \mintinline{smalltalk}{Object} class, which all other classes inherit from), as well as additional ones, depending on the environment's use cases. One of their most important features is \emph{reflection}, with which the programmer is able to inspect and modify every part of the system at runtime. This is especially useful in cases where a system may never shut down, because the changed code does not need to be recompiled but comes into effect immediately. 
 
-The syntax can be described as minimalistic. Smalltalk code consists of sequences of messages sent to objects (\mintinline{smalltalk}{anObject message})\footnote{A good overview on the Smalltalk syntax was created by Chris Rathman and can be found at \url{http://www.angelfire.com/tx4/cus/notes/smalltalk.html}, accessed: 2016-09-10}. Listing \ref{lst:smalltalksyntax} presents syntax basics that are helpful when approaching Seaside.  
+The syntax can be described as minimalistic. Smalltalk code consists of sequences of messages sent to objects (\mintinline{smalltalk}{anObject message})\footnote{A good overview on the Smalltalk syntax was created by Chris Rathman and can be found at \url{http://www.angelfire.com/tx4/cus/notes/smalltalk.html}, accessed: 2016-09-10}. Figure \ref{fig:syntax}\footnote{Taken from a software architecture course presentation of the HPI Software Architecture Group} presents the Smalltalk syntax which is helpful to be familiar with when approaching Seaside.  
 
-
-\begin{listing}[]%ht]
-\begin{minted}{smalltalk}
-
-"Send the message 'not' to 'true' and assign the returned value to a."
-a := true not.
-
-"Messages can be chained."
-b := a not not not.
-
-"Blocks are sequences of executable code that return the value of the 
-last line. They can take any number of arguments (here x and y)."
-aBlock := [ :x :y | z := x * y. z - (2 * x) ].
-
-"aBlock is executed with varying parameters depending on b's state."
-answer := b ifTrue:  [aBlock value: 7 value: 8] 
-            ifFalse: [aBlock value: 0 value: 0].
-
-\end{minted}
-\caption{The core syntax of Smalltalk}
-\label{lst:smalltalksyntax}
-\end{listing}
+\begin{figure}[h]
+\begin{center}
+\includegraphics*[width=0.7\textwidth]{images/syntax.png}\\
+\caption{The Smalltalk syntax in a nutshell}
+\label{fig:syntax}
+\end{center}
+\end{figure}
 
 \subsection{Installing Seaside}
 
@@ -189,7 +174,7 @@ After opening the \emph{Seaside Control Panel} vie the \emph{Apps} tab in the en
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics*[width=0.82\textwidth]{images/started.png}\\
+\includegraphics*[width=0.8\textwidth]{images/started.png}\\
 \caption{A Squeak environment with a running Seaside server and a browser showing the root site}
 \label{abb:start}
 \end{center}
@@ -213,9 +198,6 @@ MyRootComponent class>>initialize
 MyRootComponent>>renderContentOn: html
     html div: 'Hello World'
     
-MyRootComponent>>children
-    ^children
-
 \end{minted}
 \caption{Making the \mintinline{smalltalk}{MyRootComponent} the website's root and adding basic functionality}
 \label{lst:seasidefirststeps}
@@ -270,13 +252,8 @@ In this Section we will first take another quick look at the fundamental differe
 
 \subsection{Comparison With Other Technologies}
 
-\todo{\emph{object-orientation}, \emph{continuations}, and \emph{fast prototyping/development}}.
-
-\begin{itemize}
-\item http://amber-lang.net/index.html
-\item everything is an object
-\item hides synchronicity -> no callback hell
-\end{itemize}
+Seaside is not the only Smalltalk based web development technology. \emph{Amber}\footnote{\url{http://amber-lang.net/index.html}, accessed: 2016-09-14} is a Smalltalk dialect that is used for client side web applications, bringing the benefits of Smalltalk to a more modern approach to web apps.
+Like Amber, Seaside is fully object-oriented, which makes it differ from the more script based view on web development of JavaScript and the likes the most. This makes a modular approach to website building possible, which over the time has become a popular way of thinking in JavaScript too, made possible by abstractions and frameworks such as React with its stateful components and \emph{ember}\footnote{\url{http://emberjs.com/}, accessed: 2016-09-14} with its modular \emph{handlebar}-templates. Firthermore, object-orientation hides issues with synchronicity, ridding the development of any need for callbacks, which is not an uncommon issue when working with JavaScript.
 
 
 \subsection{Problems}
