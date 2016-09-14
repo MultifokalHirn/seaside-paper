@@ -140,7 +140,7 @@ In this Section we will shortly introduce the object-oriented programming langua
 
 Smalltalk was created in the 70's at Xerox PARC by Alan Kay \emph{et al.} for research and educational purposes. It is dynamically typed and purely object-oriented, meaning that \emph{everything in a Smalltalk environment is an object} and can thus be easily interacted with. Smalltalk environments such as the free and open source Squeak or the proprietary Gemstone\footnote{Squeak: \url{http://squeak.org} Gemstone: \url{https://gemtalksystems.com}, both accessed: 2016-09-11} are normally shipped with the Smalltalk core classes (e.g. the fundamental \mintinline{smalltalk}{Object} class, which all other classes inherit from), as well as additional ones, depending on the environment's use cases. One of their most important features is \emph{reflection}, with which the programmer is able to inspect and modify every part of the system at runtime. This is especially useful in cases where a system may never shut down, because the changed code does not need to be recompiled but comes into effect immediately. 
 
-The syntax can be described as minimalistic. Smalltalk code consists of sequences of messages sent to objects (\mintinline{smalltalk}{anObject message})\footnote{A good overview on the Smalltalk syntax was created by Chris Rathman and can be found at \url{http://www.angelfire.com/tx4/cus/notes/smalltalk.html}}. Listing \ref{lst:smalltalksyntax} presents syntax basics that are helpful when approaching Seaside.  
+The syntax can be described as minimalistic. Smalltalk code consists of sequences of messages sent to objects (\mintinline{smalltalk}{anObject message})\footnote{A good overview on the Smalltalk syntax was created by Chris Rathman and can be found at \url{http://www.angelfire.com/tx4/cus/notes/smalltalk.html}, accessed: 2016-09-10}. Listing \ref{lst:smalltalksyntax} presents syntax basics that are helpful when approaching Seaside.  
 
 
 \begin{listing}[]%ht]
@@ -157,7 +157,7 @@ last line. They can take any number of arguments (here x and y)."
 aBlock := [ :x :y | z := x * y. z - (2 * x) ].
 
 "aBlock is executed with varying parameters depending on b's state."
-answer := b ifTrue: [aBlock value: 7 value: 8] 
+answer := b ifTrue:  [aBlock value: 7 value: 8] 
             ifFalse: [aBlock value: 0 value: 0].
 
 \end{minted}
@@ -167,7 +167,7 @@ answer := b ifTrue: [aBlock value: 7 value: 8]
 
 \subsection{Installing Seaside}
 
-As with most Smalltalk packages, Seaside can be installed with a common package manager. In the cases of Squeak and Pharo, Metacello can automate the installation with the script shown in Listing \ref{lst:install}. However for other environments, like Gemstone, the installation process is a bit more complex, but can be found on Seaside's GitHub page\footnote{\url{https://github.com/SeasideSt/Seaside}, accessed: 2016-09-13}.
+As with most Smalltalk packages, Seaside can be installed with a common package manager. In the cases of Squeak and Pharo, Metacello can automate the installation by pasting the script shown in Listing \ref{lst:install} into a \emph{Workspace}-window and then executing it by selecting it and pressing \texttt{cmd+d} or \texttt{ctrl+d}. However for other environments, like Gemstone, the installation process is a bit more complex, but can be found on Seaside's GitHub page\footnote{\url{https://github.com/SeasideSt/Seaside}, accessed: 2016-09-13}.
 
 \begin{listing}[]%ht]
 \begin{minted}{smalltalk}
@@ -225,7 +225,7 @@ MyRootComponent>>children
 
 In Seaside, you can both render the View (\texttt{renderContentOn:}) or the Model itself (\texttt{renderOn:}). \mintinline{smalltalk}{MyRootComponent} will thus greet visitors with "Hello World".
 
-The \texttt{children} method is necessary to enable the component to have \emph{subcomponents}. Say we now want our website to be divided into three components, \texttt{header}, \texttt{currentBody}, and \texttt{footer}, and these are supposed to be subcomponents of \mintinline{smalltalk}{MyRootComponent}. Then we need to create these components as individual classes, just like their parent, and register them as  instance variables as well as children. 
+The \texttt{children} method is necessary to enable the component to have \emph{subcomponents}. Say we now want our website to be divided into three components, \texttt{header}, \texttt{currentBody}, and \texttt{footer}, and these are supposed to be subcomponents of \mintinline{smalltalk}{MyRootComponent}. Then we need to create these components as individual classes, just like their parent, and register them as  instance variables as well as children. Listing \ref{lst:subcomps} shows the necessary steps to get Seaside to render the new subcomponents whenever \mintinline{smalltalk}{MyRootComponent} gets rendered.
 
 \begin{listing}[]%ht]
 \begin{minted}{smalltalk}
@@ -233,19 +233,35 @@ The \texttt{children} method is necessary to enable the component to have \emph{
 MyRootComponent>>children
     ^ { header. currentBody. footer }
 
-renderContentOn: html
+MyRootComponent>>renderContentOn: html
     html div id: #header; with: [html render: header].
     html div id: #body; with: [html render: currentBody].
     html div id: #footer; with: [html render: footer]
 
 \end{minted}
 \caption{Subdividing \mintinline{smalltalk}{MyRootComponent} into its subcomponents and making it only render their content}
-\label{lst:seasidefirststeps}
+\label{lst:subcomps}
 \end{listing}
 
 \subsection{Debugging}
 
-\subsection{Managing Sessions}
+A very prominent feature of Smalltalk environments is the powerful debugger, shown in Figure \ref{abb:debug}. On the top one can see the call stack, with the code of the currently selected method below. The method can be edited right then and there, with the changes having immediate effect, as Smalltalk environments are live systems. Below the view of the method one can inspect all involved Objects and their state at the time of the currently selected method call. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics*[width=0.5\textwidth]{images/debugger.png}\\
+\caption{The debugger in a Squeak environment}
+\label{abb:debug}
+\end{center}
+\end{figure}
+
+If live debugging is enabled in Seaside, developers can test their website and whenever an error is raised, the website view in the browser will freeze and a debugging window will appear. Then bug can be fixed, saved, and the website will unfreeze again and do whatever it was supposed to.
+
+\subsection{User Sessions}
+
+Sessions, or sometimes also referred to as continuations, because they enable users to continue on a given Seaside web app  exactly as when the left it the last time, are instances of the \mintinline{smalltalk}{WASession} class, or custom subclasses thereof, in case the developers need sophisticated statefulness, such as keeping a user logged in. Such a subclass would typically have an additional set of instance variables, such as \texttt{isLoggedIn}. The session object can also be used to hold other vital information that can be accessed by the components, such as the username to display it on the website. \cite{ducasse2010dynamic}
+
+Unlike RESTful websites, Seaside keeps session information in the URL. On a locally running server, a common URL would be \url{http://localhost:8080/welcome?_s=_cz2gmrtjih_mfGk&_k=a7eMbFS3W04vCKCr}. This holds three different information: \texttt{welcome} refers to the currently visited subpage, which is linked to a particular component in Seaside. \texttt{s=\_cz2gmrtjih\_mfGk} is the \emph{handler field} and signifies the ID of the unique session object, which are both linked in a \mintinline{smalltalk}{WARegistry} object that is unique to each application. \texttt{k=a7eMbFS3W04vCKCr} is the \emph{action field} and refers to (up to 20) \emph{handlers}, to which the session object forwards incoming requests and which can also redirect to the \mintinline{smalltalk}{WALRUCache}, or \emph{least recent used cache}.
 
 \section{Evaluation}
 \label{sec:evaluation}

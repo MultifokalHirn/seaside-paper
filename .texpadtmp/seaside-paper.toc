@@ -9,7 +9,7 @@
 \contentsline {subsection}{\numberline {3.2}Installing Seaside}{7}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Setting Up a Website}{8}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Rendering and Subcomponents}{9}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Debugging}{10}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Managing Sessions}{10}{subsection.3.6}
-\contentsline {section}{\numberline {4}Evaluation}{10}{section.4}
-\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}
+\contentsline {subsection}{\numberline {3.5}Debugging}{9}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}User Sessions}{10}{subsection.3.6}
+\contentsline {section}{\numberline {4}Evaluation}{11}{section.4}
+\contentsline {section}{\numberline {5}Conclusion}{11}{section.5}
