@@ -261,29 +261,46 @@ If live debugging is enabled in Seaside, developers can test their website and w
 
 Sessions, or sometimes also referred to as continuations, because they enable users to continue on a given Seaside web app  exactly as when the left it the last time, are instances of the \mintinline{smalltalk}{WASession} class, or custom subclasses thereof, in case the developers need sophisticated statefulness, such as keeping a user logged in. Such a subclass would typically have an additional set of instance variables, such as \texttt{isLoggedIn}. The session object can also be used to hold other vital information that can be accessed by the components, such as the username to display it on the website. \cite{ducasse2010dynamic}
 
-Unlike RESTful websites, Seaside keeps session information in the URL. On a locally running server, a common URL would be \url{http://localhost:8080/welcome?_s=_cz2gmrtjih_mfGk&_k=a7eMbFS3W04vCKCr}. This holds three different information: \texttt{welcome} refers to the currently visited subpage, which is linked to a particular component in Seaside. \texttt{s=\_cz2gmrtjih\_mfGk} is the \emph{handler field} and signifies the ID of the unique session object, which are both linked in a \mintinline{smalltalk}{WARegistry} object that is unique to each application. \texttt{k=a7eMbFS3W04vCKCr} is the \emph{action field} and refers to (up to 20) \emph{handlers}, to which the session object forwards incoming requests and which can also redirect to the \mintinline{smalltalk}{WALRUCache}, or \emph{least recent used cache}.
+Unlike RESTful websites, Seaside keeps session information in the URL. On a locally running server, a common URL would be \url{http://localhost:8080/welcome?_s=_cz2gmrtjih_mfGk&_k=a7eMbFS3W04vCKCr}. This holds three different information: \texttt{welcome} refers to the currently visited subpage, which is linked to a particular component in Seaside. \texttt{s=\_cz2gmrtjih\_mfGk} is the \emph{handler field} and signifies the ID of the unique session object, which are both linked in a \mintinline{smalltalk}{WARegistry} object that is unique to each application. \texttt{k=a7eMbFS3W04vCKCr} is the \emph{action field} and refers to (up to 20) \emph{handlers}, to which the session object forwards incoming requests and which can also redirect to the \mintinline{smalltalk}{WALRUCache}, or \emph{least recent used cache}. \cite{perscheid2008introduction}
 
 \section{Evaluation}
 \label{sec:evaluation}
-\todo{http://amber-lang.net/index.html}
+
+In this Section we will first take another quick look at the fundamental differences between Seaside and other frameworks of its kind. Then we will discuss its problems and try to find possible reasons why it has not been adopted in a large scale. Afterwards, we share some thoughts on what Seaside can teach web developers of today and why it can be beneficial to experiment with it.
+
+\subsection{Comparison With Other Technologies}
+
 \todo{\emph{object-orientation}, \emph{continuations}, and \emph{fast prototyping/development}}.
 
 \begin{itemize}
-\item comparison of features:
+\item http://amber-lang.net/index.html
 \item everything is an object
 \item hides synchronicity -> no callback hell
 \end{itemize}
 
-\begin{itemize}
-\item Each session object can be multiple megabytes big If server crashes, all sessions are lost
-\item Gemstone distributed but expensive
-\item Javascript not really debuggable
-\item Very hard to implement human readable URLs
-\item Not on par with today’s demands of a fast dynamic webpage since its server side
-\end{itemize}
+
+\subsection{Problems}
+
+The most obvious problem with Seaside is that its applications run on the server side, which makes it difficult to scale well (imagine the \emph{Facebook} web app running server side). Such an approach has also mostly become obsolete, since personal computers have become quite powerful and JavaScript is usually allowed to run in browser by default, complex and dynamic webpages can run smoothly on most machines of today. When using JavaScript with Seaside, the code will not be as easily debuggable anymore, taking away large parts of the benefits it provides. Furthermore, the absence of human readable URLs is an issue that can not be ignored and which puts it behind other technologies that allow an easy implementation of such a feature. 
+
+Running a distributed Seaside system with the \emph{GLASS} stack (\textbf{G}emStone, \textbf{L}inux, \textbf{A}pache, \textbf{S}easide, and \textbf{S}malltalk) can be very powerful and stable, albeit very expensive. Such a system can thus only be used in highly specialized fields with specific needs, and will not cater to larger development public.
+
+At last, Smalltalk has been sort of forgotten about, possibly because of the uncommon approach of the live environment which to some might appear overwhelming or restrictive at first glance. Furthermore, Seaside goes against many web application development concepts that people know, and since it is part of our nature to be skeptical or even fearful of the unknown, it might have a rather deterring effect on many web developers.
+
+
+\subsection{What Seaside Can Teach}
+
+Web development has gotten more and more centred around a rather small number of technologies, making them look like unquestionable truths, which can create a sort of narrow frame in which people think about problems in this field. 
+It could however be argued that it is important for people of any profession to sometimes leave their comfort zone and try other methods and technologies which they don't know yet, allowing them to think about the problems they face on a day to day basis in new ways.
+
+Getting to know foreign systems and frameworks such as Seaside could thus allow developers to understand that their approach is not the only answer. Such a broader perspective not only helps in critical thinking, but also lays the groundwork of \emph{thinking outside the box} and developing entirely new technologies and approaches.
 
 \section{Conclusion}
 \label{sec:conclusion}
+
+In this work we have given a concise introduction to the object-oriented web application development framework Seaside. 
+
+First, its history as well as context were outlined and its core motivations and features have been presented. This was followed by a short overview of working with Smalltalk and Seaside, including the key features of components, debugging, and user sessions. After comparing it with other technologies of its kind, we discussed its problems and then described, that getting to know Seaside might still be beneficial by broadening one's view on the field of web development.
 
 \todo{URLS IN BIBLIOGRAPHY!!!}
 
